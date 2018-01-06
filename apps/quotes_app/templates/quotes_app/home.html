@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quotes</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/quotes.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+      <a href="/quotes_app/logOut">Log Out</a>
+      <h2>Welcome, {{user.alias}}</h2>
+      <div class="left">
+          <fieldset>
+              <legend>Quoteable Quotes</legend>
+              <div class="quotes" style="overflow: scroll">
+                {% for quote in quotes %}
+                <div class="quoteBox">
+                  <p>{{quote.author}}: {{quote.message}}</p>
+                  <h6>Posted by: <a href="/quotes_app/users/{{quote.userPosting.id}}">{{quote.userPosting.alias}}</a></h6>
+                  <form action="/quotes_app/add_to_list/{{quote.id}}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Add to My List">
+                  </form>
+                </div>
+                <br>
+                {% endfor %}
+              </div>
+          </fieldset>
+      </div>
+      <div class="right">
+          <fieldset>
+              <legend>Your Favorites</legend>
+              <div class="favorites" style="overflow: scroll">
+                {% for quote in quotesFavorited %}
+                <div class="quoteBox">
+                  <p>{{quote.author}}: {{quote.message}}</p>
+                  <h6>Posted by: <a href="/quotes_app/users/{{quote.userPosting.id}}">{{quote.userPosting.alias}}</a></h6>
+                  <form action="/quotes_app/remove_from_list/{{quote.id}}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Remove From My List">
+                  </form>
+                </div>
+                {% endfor %}
+              </div>
+          </fieldset>
+      <div class="contribute">
+        <p>Contribute a Quote:</p>
+        <form action="/quotes_app/add/quote/validation" method="post">
+          {% csrf_token %}
+          Quoted By: <input type="text" name="author">
+          <br>
+          Message: <textarea name="message"></textarea>
+          <br>
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+      </div>
+      {% if messages %}
+      {% for message in messages %}
+      <p style="color: red">*{{message}}</p>
+      {% endfor %}
+      {% endif %}
+    </div>
+</body>
+</html>

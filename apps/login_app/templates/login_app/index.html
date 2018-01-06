@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+      <h3>Welcome!</h3>
+      <div class="left">
+        <fieldset>
+          <legend>Register</legend>
+          {% if messages %}
+          {% for message in messages %}
+          {% ifequal message.tags "Registration error" %}
+          <p>{{message}}</p>
+          {% endifequal %}
+          {% endfor %}
+          {% endif %}
+          <form action="/registration" method="post">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Name"><br>
+            <input type="text" name="alias" placeholder="Alias"><br>
+            <input type="text" name="email" placeholder="Email"><br>
+            <input type="password" name="password" placeholder="Password"><br>
+            *Password should be at least 8 characters.<br>
+            <input type="password" name="c_password" placeholder="Confirm Password"><br>
+            <input type="date" name="bday"><br>
+            <input type="submit" value="Register">
+          </form>
+        </fieldset>
+      </div>
+      <div class="right">
+        <fieldset>
+          <legend>Login</legend>
+          {% if messages %}
+          {% for message in messages %}
+          {% ifequal message.tags "Login error" %}
+          <p>{{message}}</p>
+          {% endifequal %}
+          {% endfor %}
+          {% endif %}
+          <form action="/login" method="post">
+            {% csrf_token %}
+            <input type="text" name="email" placeholder="Email"><br>
+            <input type="password" name="password" placeholder="Password"><br>
+            <input type="submit" value="Login">
+          </form>
+        </fieldset>
+      </div>
+    </div>
+</body>
+</html>

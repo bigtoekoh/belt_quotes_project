@@ -1,0 +1,19 @@
+.wrapper {
+  width: 970px;
+  height: 1000px;
+}
+
+.left {
+  width: 500px;
+  display: inline-block;
+}
+
+.right {
+  width: 450px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.contribute {
+  margin-left: 300px;
+}

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+</head>
+<body>
+    <a href="/quotes_app">Home</a><br>
+    <a href="/quotes_app/logOut">Log Out</a>
+    <p>Posts by {{user.alias}}</p>
+    <p>Count: {{user.count}}</p><br>
+    {% for quote in quotes %}
+    <p>{{quote.author}}: {{quote.message}}</p>
+    {% endfor %}
+</body>
+</html>
